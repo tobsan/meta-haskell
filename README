@@ -1,0 +1,32 @@
+This README file contains information on the contents of the
+meta-haskell layer.
+
+Please see the corresponding sections below for details.
+
+Dependencies
+============
+
+This layer depends on:
+
+  URI: git://git.openembedded.org/bitbake
+  branch: master
+
+  URI: git://git.openembedded.org/openembedded-core
+  layers: meta
+  branch: master
+
+Patches
+=======
+
+Please submit patches using github pull requests at https://github.com/tobsan/meta-haskell
+
+Maintainer: Tobias Olausson <tobsan@tobsan.se>
+
+Required configuration
+======================
+For now, the following needs to be added to local.conf:
+
+    HOSTTOOLS += " alex happy ghc ghc-pkg "
+    DISTRO_FEATURES += " ld-is-gold "
+
+And until we've fixed bootstrapping ghc-native, those hosttools will stay there.
