@@ -12,6 +12,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 SRC_URI = "\
     https://downloads.haskell.org/~ghc/${PV}/ghc-${PV}-src.tar.xz \
     file://0001-derive-constants-split-cc.patch \
+    file://0002-gcc-ld-options-separate.patch \
 "
 
 SRC_URI[md5sum] = "cd25f62e85f4e0343fd4655bbd52f3e7"
@@ -30,6 +31,8 @@ REQUIRED_DISTRO_FEATURES += "${@bb.utils.contains('HOST_ARCH', 'arm', 'ld-is-gol
 # The autodetection in GHC doesn't work, pass some values explicitly here
 EXTRA_OECONF += "\
     --host=${BUILD_SYS} \
+    --build=${BUILD_SYS} \
+    --target=${TARGET_SYS} \
     --with-nm=${NM} \
     --with-ar=${AR} \
     --with-objdump=${OBJDUMP} \

@@ -1,0 +1,17 @@
+--- a/rules/build-package-data.mk
++++ a/rules/build-package-data.mk
+@@ -104,8 +104,12 @@
+ $1_$2_CONFIGURE_OPTS += $$(BOOT_PKG_CONSTRAINTS)
+ endif
+ 
+-$1_$2_CONFIGURE_OPTS += --with-gcc="$$(CC_STAGE$3)"
+-$1_$2_CONFIGURE_OPTS += --with-ld="$$(LD_STAGE$3)"
++$1_$2_CONFIGURE_OPTS += --with-gcc="$$(firstword $(CC_STAGE$3))"
++$1_$2_CONFIGURE_OPTS += --gcc-options="$$(wordlist 2, $(words $(CC_STAGE$3)), $(CC_STAGE$3))"
++
++$1_$2_CONFIGURE_OPTS += --with-ld="$$(firstword $(LD_STAGE$3))"
++$1_$2_CONFIGURE_OPTS += --ld-options="$$(wordlist 2, $(words $(LD_STAGE$3)), $(LD_STAGE$3))"
++
+ $1_$2_CONFIGURE_OPTS += --with-ar="$$(AR_STAGE$3)"
+ $1_$2_CONFIGURE_OPTS += $$(if $$(ALEX),--with-alex="$$(ALEX)")
+ $1_$2_CONFIGURE_OPTS += $$(if $$(HAPPY),--with-happy="$$(HAPPY)")
